@@ -3,12 +3,11 @@ package ar.com.tecnosoftware.abmEmpleadoApp.model;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 
+@Entity
+@Table(name="Empleados")
 public class Empleado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,13 +22,15 @@ public class Empleado {
     @Min(value = 18, message = "Debe ser mayor de edad")
     @Max(value = 80, message = "Edad fuera del rango correcto, debe estar entre los 18 y 80 años")
     @Column(name="edad")
-
     private int edad;
+
     @NotNull
     @DecimalMin(value = "8000", message = "El sueldo minimo es $8000")
     @DecimalMax(value = "999999", message = "Sueldo fuera de rango")
     @Column(name="sueldo")
     private double sueldo;
+
+    public Empleado() {}
 
     public Empleado(int id, String name, int edad, double sueldo) {
         this.id = id;

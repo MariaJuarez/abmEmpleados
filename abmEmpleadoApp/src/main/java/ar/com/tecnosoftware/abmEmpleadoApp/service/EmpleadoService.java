@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service("empleadoService")
@@ -49,5 +48,10 @@ public class EmpleadoService implements EmpleadoServiceInterface{
     @Override
     public Empleado searchEmpleado(int empleadoId) {
         return empleadoInterfaceRepository.findOne(empleadoId);
+    }
+
+    @Override
+    public List<Empleado> list(int edad) {
+        return null;
     }
 }

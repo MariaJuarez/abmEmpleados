@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository ("empleadoInterfaceRepository")
+@Repository
 public interface EmpleadoInterfaceRepository extends JpaRepository<Empleado, Integer> {
 }

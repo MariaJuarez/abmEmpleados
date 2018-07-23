@@ -8,12 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
-@Service("empleadoService")
+@Service
 @Transactional
 public class EmpleadoService implements EmpleadoServiceInterface{
 
     @Autowired
-    @Qualifier("empleadoInterfaceRepository")
     private EmpleadoInterfaceRepository empleadoInterfaceRepository;
 
     @Override
@@ -22,8 +21,8 @@ public class EmpleadoService implements EmpleadoServiceInterface{
     }
 
     @Override
-    public Empleado addEmpleado(Empleado empleado) {
-        return empleadoInterfaceRepository.save(empleado);
+    public void addEmpleado(Empleado empleado) {
+        empleadoInterfaceRepository.save(empleado);
     }
 
     @Override
@@ -50,8 +49,6 @@ public class EmpleadoService implements EmpleadoServiceInterface{
         return empleadoInterfaceRepository.findOne(empleadoId);
     }
 
-    @Override
-    public List<Empleado> list(int edad) {
-        return null;
     }
-}
+
+

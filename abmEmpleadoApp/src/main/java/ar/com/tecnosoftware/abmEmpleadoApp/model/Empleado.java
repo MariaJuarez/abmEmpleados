@@ -15,8 +15,8 @@ public class Empleado {
 
     @NotBlank
     @NotEmpty
-    @Column(name = "name")
-    private String name;
+    @Column(name = "nombre")
+    private String nombre;
 
     @NotNull
     @Min(value = 18, message = "Debe ser mayor de edad")
@@ -25,16 +25,16 @@ public class Empleado {
     private int edad;
 
     @NotNull
-    @DecimalMin(value = "8000", message = "El sueldo minimo es $8000")
-    @DecimalMax(value = "999999", message = "Sueldo fuera de rango")
+    @DecimalMin("8000")
+    @DecimalMax("1000000.00")
     @Column(name="sueldo")
     private double sueldo;
 
     public Empleado() {}
 
-    public Empleado(int id, String name, int edad, double sueldo) {
+    public Empleado(int id, String nombre, int edad, double sueldo) {
         this.id = id;
-        this.name = name;
+        this.nombre = nombre;
         this.edad = edad;
         this.sueldo = sueldo;
     }
@@ -47,12 +47,12 @@ public class Empleado {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public int getEdad() {
@@ -75,7 +75,7 @@ public class Empleado {
     public String toString() {
         return "Empleado{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name='" + nombre + '\'' +
                 ", edad=" + edad +
                 ", sueldo=" + sueldo +
                 '}';

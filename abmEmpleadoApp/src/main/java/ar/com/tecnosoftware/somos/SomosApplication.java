@@ -1,12 +1,12 @@
-package ar.com.tecnosoftware.abmEmpleadoApp;
+package ar.com.tecnosoftware.somos;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AbmEmpleadoAppApplication {
+public class SomosApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AbmEmpleadoAppApplication.class, args);
+		SpringApplication.run(SomosApplication.class, args);
 	}
 }

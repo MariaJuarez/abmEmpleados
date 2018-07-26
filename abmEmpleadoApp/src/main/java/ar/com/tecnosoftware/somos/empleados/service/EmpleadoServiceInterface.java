@@ -1,6 +1,6 @@
-package ar.com.tecnosoftware.abmEmpleadoApp.service;
+package ar.com.tecnosoftware.somos.empleados.service;
 
-import ar.com.tecnosoftware.abmEmpleadoApp.model.Empleado;
+import ar.com.tecnosoftware.somos.empleados.entity.Empleado;
 
 import java.util.List;
 

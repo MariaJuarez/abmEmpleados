@@ -1,46 +1,80 @@
-package ar.com.tecnosoftware.abmEmpleadoApp.controller;
-import ar.com.tecnosoftware.abmEmpleadoApp.exception.EmpleadoNotFoundException;
-import ar.com.tecnosoftware.abmEmpleadoApp.model.Empleado;
-import ar.com.tecnosoftware.abmEmpleadoApp.service.EmpleadoService;
+package ar.com.tecnosoftware.somos.empleados.controller;
+import ar.com.tecnosoftware.somos.empleados.exception.EmpleadoNotFoundException;
+import ar.com.tecnosoftware.somos.empleados.entity.Empleado;
+import ar.com.tecnosoftware.somos.empleados.service.EmpleadoService;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// Agregamos el @RestController "de esta forma Spring sabrá que debe ofrecer esta clase como Web Service Restful"
+/**
+
+ * Clase controladora la cual recibe peticiones desde la WEB y da entrada a los metodos de ABM para los empleados
+
+ * TODO @author: Maria J. Juarez P.
+
+ * @version: 25/07/2018/A
+
+ */
+
+
+/** Agregamos el @RestController y de esta forma Spring sabrá que debe ofrecer esta clase como Web Service Restfull
+ * combina las anotaciones {@link Controller @Controller} y {@link ResponseBody @ResponseBody} , que elimina la necesidad
+ * de anotar cada método de manejo de solicitudes de la clase de controlador con la anotación @ResponseBody.
+ * @see más en <a href = "http://www.baeldung.com/spring-controller-vs-restcontroller" /> baeldung.com – RestController en Spring </a>
+ *
+ * Agregamos el @CrossOrigin que habilita la comunicación entre dominios.
+ * @see más en <a href = "http://www.baeldung.com/spring-cors" /> baeldung.com – CROS en Spring </a>
+ *
+ * Agregamos el @RequestMapping que asigna las solicitudes web a los métodos del Controller.
+ * @see más en <a href = "http://www.baeldung.com/spring-requestmapping" /> baeldung.com – RequestMapping en Spring </a>
+ * en el que al colocar por ejemplo "http://localhost8080/empleado" ya que estaría en contact con el controlador.
+ **/
 @RestController
 @CrossOrigin
 @RequestMapping("/empleado")
 public class EmpleadoController {
 
+
     @Autowired
     private EmpleadoService empleadoService;
 
-    //Metodo para crear empleado
-    //RequestMapping le digo el valor del mapping y en este caso  su metodo va a agregar un dato, es por ello el POST
-    @RequestMapping(value = "/crear", method = RequestMethod.POST)
-    /*
-     *Con el @Valid verifico si el dato que entra al parámetro sea correcto
-     * y el @RequestBody indico que el parámetro de método debe estar vinculado al cuerpo de la solicitud web
-     */
+    /** Metodo para crear empleado
+     *  {@link PostMapping @PostMapping} Es parte del @RequestMapping para recibir una peticion que se mappea hasta este método
+     *  y se usa POST al ser un metodo que agrega un nuevo dato.
+     *  tambien puede usarse @RequestMapping(value = "/crear", method = RequestMethod.POST)
+     *
+     *
+     *  Con el @Valid verifico si el dato que entra al parámetro sea correcto
+     *  y el @RequestBody indico que el parámetro de método debe estar vinculado al cuerpo de la solicitud web
+     **/
+    @PostMapping (value = "/crear")
     public void addEmpleado(@Valid @RequestBody Empleado empleado) {
         empleadoService.addEmpleado(empleado);
     }
 
-    /*        Metodo para editar empleado
-    * En el @RequestMapping le enviamos un RequestMethod.PUT para editar
-    * Con @RequestBody indico que el parámetro de método debe estar vinculado al cuerpo de la solicitud web
-     Con ResponseEntity<> le valido y entrego el estatus http del objeto enviado*/
-    @RequestMapping(value = "/editar", method = RequestMethod.PUT)
+
+    /** Metodo para editar empleado
+     * {@link PutMapping @PutMapping} le enviamos un RequestMethod.PUT para editar.
+     * tambien puede usarse @RequestMapping(value = "/editar", method = RequestMethod.PUT)
+     *
+     * @param empleadoEdited se recibe un emplado en JSON
+     * Con ResponseEntity<> se valido y entrega el estatus http del objeto enviado.
+     * @return con el ResponseEntity entrega un estado de tipo HTTP para enviarle
+     *
+     **/
+    @PutMapping(value = "/editar")
     public ResponseEntity<Empleado> editEmpleado(@Valid @RequestBody Empleado empleadoEdited) throws EmpleadoNotFoundException {
         if (empleadoService.editEmpleado(empleadoEdited.getId(), empleadoEdited)) {
             return ResponseEntity.ok(empleadoEdited);
@@ -48,11 +82,10 @@ public class EmpleadoController {
         throw new EmpleadoNotFoundException("No se encontro el empleado con el id: " + empleadoEdited.getId());
     }
 
-
 /*    Metodo para eliminar empleado con el parametro ID
         * Con @PathVariable le indico que el valor que va a entrar viene en la URL */
 
-    @RequestMapping(value = "/eliminar/{empleadoId}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/eliminar/{empleadoId}")
     public ResponseEntity<Empleado> deleteEmpleado(@PathVariable ("empleadoId") int empleadoId) throws EmpleadoNotFoundException {
         Empleado empleado=empleadoService.searchEmpleado(empleadoId);
         if(empleadoService.deleteEmpleado(empleadoId)){
@@ -61,7 +94,7 @@ public class EmpleadoController {
         throw new EmpleadoNotFoundException("No se encontro el empleado con el id: " + empleadoId);
     }
 
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public List<Empleado> listEmpleados() {
         return empleadoService.listEmpleados();
     }

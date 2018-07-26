@@ -1,9 +1,8 @@
-package ar.com.tecnosoftware.abmEmpleadoApp.service;
+package ar.com.tecnosoftware.somos.empleados.service;
 
-import ar.com.tecnosoftware.abmEmpleadoApp.model.Empleado;
-import ar.com.tecnosoftware.abmEmpleadoApp.repository.EmpleadoInterfaceRepository;
+import ar.com.tecnosoftware.somos.empleados.entity.Empleado;
+import ar.com.tecnosoftware.somos.empleados.repository.EmpleadoInterfaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;

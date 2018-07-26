@@ -1,4 +1,4 @@
-package ar.com.tecnosoftware.abmEmpleadoApp.exception;
+package ar.com.tecnosoftware.somos.empleados.exception;
 
 public class EmpleadoNotFoundException extends Exception {
     public EmpleadoNotFoundException() {

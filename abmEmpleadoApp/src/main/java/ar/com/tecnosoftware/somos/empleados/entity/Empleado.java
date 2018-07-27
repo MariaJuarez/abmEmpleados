@@ -1,4 +1,4 @@
-package ar.com.tecnosoftware.abmEmpleadoApp.model;
+package ar.com.tecnosoftware.somos.empleados.entity;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -6,11 +6,22 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+/**
+ *
+ * En hibernate es necesario tener en la clase entity siempre un constructor vacio.
+ * tambien especificar el nombre de las tablas y columnas sin camelcase ya que varias DB
+ * lo toman como un guion bajo. Es decir si se usa idEmpleado la DB lo toma como id_empleado
+ * y crea conflicto.
+ *
+ **/
+
 @Entity
 @Table(name="Empleados")
 public class Empleado {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
     @NotBlank

@@ -1,4 +1,4 @@
-package ar.com.tecnosoftware.abmEmpleadoApp;
+package ar.com.tecnosoftware.somos;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
